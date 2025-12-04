@@ -1,5 +1,6 @@
 public class FireReport {
     String reportID;
+    String statusPenyelesaian;
     int ancamanNyawa;
     int jenisKebakaran;
     int kecepatanPenyebaran;
@@ -48,4 +49,27 @@ public class FireReport {
             mobilDikerahkan = 1;
         }
     }
+    public String getReportID() { return reportID; }
+    public int getAncamanNyawa() { return ancamanNyawa; }
+    public int getJenisKebakaran() { return jenisKebakaran; }
+    public int getKecepatanPenyebaran() { return kecepatanPenyebaran; }
+    public int getLokasiNodePoint() { return lokasiNodePoint; }
+    public int getWaktuKebakaran() { return waktuKebakaran; }
+    public int getTotalPoint() { return totalPoint; }
+    public String getPriorityLevel() { return priorityLevel; }
+    public int getMobilDikerahkan() { return mobilDikerahkan; }
+    public String getLokasiNode() { return lokasiNode; }
+
+    @Override
+    public String toString() {
+        return String.format("[ID: %s] | Level: %s | Skor: %d | Lokasi: %s",
+                             reportID, priorityLevel, totalPoint, lokasiNode);
+    }
+    public String getIdLaporan() { 
+    return reportID; 
+    }
+    public String getStatusPenyelesaian() { 
+        return statusPenyelesaian;
+    }
 }
+
