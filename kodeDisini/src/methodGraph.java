@@ -1,6 +1,16 @@
 public class methodGraph {
     nodeGraph head;
 
+    public void UI() {
+        System.out.println("\n====================================");
+        System.out.println("   Sistem Informasi Kebakaran      ");
+        System.out.println("====================================");
+        System.out.println("1. Tambah Laporan Kebakaran         ");
+        System.out.println("2. Lihat Daftar Laporan (Queue)     ");
+        System.out.println("0. Keluar                           ");
+        System.out.println("====================================");
+    }
+
     public methodGraph(nodeGraph headNode) {
         this.head = headNode;
     }

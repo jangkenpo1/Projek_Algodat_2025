@@ -1,18 +1,17 @@
 public class FireReport {
     String reportID;
     String statusPenyelesaian;
+
     int ancamanNyawa;
     int jenisKebakaran;
     int kecepatanPenyebaran;
-    int lokasiNodePoint;
+    int lokasiKebakaran;
     int waktuKebakaran;
 
     int totalPoint;
     String priorityLevel;
     int mobilDikerahkan;
-
     String lokasiNode;
-
     FireReport next;
 
     public FireReport(String reportID, int nyawa, int jenis, int penyebaran, 
@@ -21,16 +20,16 @@ public class FireReport {
         this.ancamanNyawa = nyawa;
         this.jenisKebakaran = jenis;
         this.kecepatanPenyebaran = penyebaran;
-        this.lokasiNodePoint = lokasiPoint;
+        this.lokasiKebakaran = lokasiPoint;
         this.waktuKebakaran = waktu;
         this.lokasiNode = lokasiNode;
 
         hitungTotal();
     }
 
-    private void hitungTotal() {
+    public void hitungTotal() {
         totalPoint = ancamanNyawa + jenisKebakaran + kecepatanPenyebaran 
-                     + lokasiNodePoint + waktuKebakaran;
+                     + lokasiKebakaran + waktuKebakaran;
 
         if (totalPoint >= 110) {
             priorityLevel = "CRITICAL";
@@ -49,25 +48,22 @@ public class FireReport {
             mobilDikerahkan = 1;
         }
     }
+
     public String getReportID() { return reportID; }
     public int getAncamanNyawa() { return ancamanNyawa; }
     public int getJenisKebakaran() { return jenisKebakaran; }
     public int getKecepatanPenyebaran() { return kecepatanPenyebaran; }
-    public int getLokasiNodePoint() { return lokasiNodePoint; }
+    public int getlokasiKebakaran() { return lokasiKebakaran; }
     public int getWaktuKebakaran() { return waktuKebakaran; }
     public int getTotalPoint() { return totalPoint; }
     public String getPriorityLevel() { return priorityLevel; }
     public int getMobilDikerahkan() { return mobilDikerahkan; }
     public String getLokasiNode() { return lokasiNode; }
 
-    @Override
-    public String toString() {
-        return String.format("[ID: %s] | Level: %s | Skor: %d | Lokasi: %s",
-                             reportID, priorityLevel, totalPoint, lokasiNode);
-    }
     public String getIdLaporan() { 
-    return reportID; 
+        return reportID; 
     }
+    
     public String getStatusPenyelesaian() { 
         return statusPenyelesaian;
     }
