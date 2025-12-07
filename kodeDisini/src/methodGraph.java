@@ -31,19 +31,19 @@ public class methodGraph {
         }
     }
 
-    public void doubleaddEdge(String source, String destination, int weight) {
-        addEdge(source, destination, weight);
-        addEdge(destination, source, weight);
+    public void doubleaddEdge(String source, String destination, String namaJalan, int weight) {
+        addEdge(source, destination, namaJalan, weight);
+        addEdge(destination, source, namaJalan, weight);
     }
 
-    public void addEdge(String source, String destination, int weight) {
+    public void addEdge(String source, String destination, String namaJalan, int weight) {
         nodeGraph sourceNode = findNode(source);
         if (sourceNode == null) {
             System.out.println("Node " + source + " tidak ditemukan!");
             return;
         }
 
-        nodeEdge newEdge = new nodeEdge(destination, weight);
+        nodeEdge newEdge = new nodeEdge(destination, namaJalan, weight);
         
         if (sourceNode.headEdge == null) {
             sourceNode.headEdge = newEdge;
