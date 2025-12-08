@@ -118,7 +118,7 @@ public class methodLaporan {
         if (head == null || newReport.getTotalPoint() > head.getTotalPoint()) {
             newReport.next = head;
             head = newReport;
-            System.out.println("Laporan " + reportID + " (" + newReport.getPriorityLevel() + " - " + newReport.getTotalPoint() + " poin) ditambahkan di DEPAN queue!");
+            System.out.println("Jenis: " + newReport.getJenisKebakaranNama() + " | Lokasi: " + newReport.getLokasiNode());
         } else {
             FireReport current = head;
             while (current.next != null && current.next.getTotalPoint() >= newReport.getTotalPoint()) {
@@ -126,7 +126,7 @@ public class methodLaporan {
             }
             newReport.next = current.next;
             current.next = newReport;
-            System.out.println("Laporan " + reportID + " (" + newReport.getPriorityLevel() +  " - " + newReport.getTotalPoint() + " poin) ditambahkan ke queue!");
+            System.out.println("Jenis: " + newReport.getJenisKebakaranNama() + " | Lokasi: " + newReport.getLokasiNode());
         }
     }
 
@@ -150,11 +150,17 @@ public class methodLaporan {
         
         System.out.println("\n=== PRIORITY QUEUE (Tertinggi di depan) ===");
         FireReport current = head;
-        int no = 1;
         while (current != null) {
-            System.out.println(no + ". [" + current.getReportID() + "] " + current.getPriorityLevel() + " - " + current.getTotalPoint() + " poin - Lokasi: " + current.getLokasiNode());
+            System.out.println("     ====== [" + current.getReportID() + "] ======     ");
+            System.out.println("Priority Level       : " + current.getPriorityLevel());
+            System.out.println("Jenis Kebakaran      : " + current.getJenisKebakaranNama());
+            System.out.println("Ancaman Nyawa        : " + current.getAncamanNyawaNama());
+            System.out.println("Kecepatan Penyebaran : " + current.getKecepatanPenyebaranNama());
+            System.out.println("Lokasi Kebakaran     : " + current.getLokasiNode() + " - " + current.getLokasiKebakaranNama());
+            System.out.println("Waktu Kebakaran      : " + current.getWaktuKebakaranNama());
+            System.out.println("Total Point          : " + current.getTotalPoint());
+            System.out.println("----------------------------------------------");
             current = current.next;
-            no++;
         }
         System.out.println("============================================\n");
     }
@@ -194,7 +200,8 @@ public class methodLaporan {
         FireReport current = topStack;
         int no = 1;
         while (current != null) {
-            System.out.println(no + ". [" + current.getReportID() + "] " +  current.getPriorityLevel() + " - " + current.getTotalPoint() + " poin - Lokasi: " +  current.getLokasiNode());
+            System.out.println(no + ". [" + current.getReportID() + "] " +  current.getPriorityLevel() + " - " + current.getTotalPoint() + " poin");
+            System.out.println("   Lokasi: " + current.getLokasiNode() + " | Jenis: " + current.getJenisKebakaranNama());
             current = current.next;
             no++;
         }
@@ -223,6 +230,7 @@ public class methodLaporan {
             System.out.println("✓ DITEMUKAN!");
             System.out.println("  ID: " + current.getReportID());
             System.out.println("  Lokasi: " + current.getLokasiNode());
+            System.out.println("  Jenis Kebakaran: " + current.getJenisKebakaranNama());
             System.out.println("  Prioritas: " + current.getPriorityLevel());
             System.out.println("  Total Point: " + current.getTotalPoint());
             found = true;
@@ -266,7 +274,7 @@ public class methodLaporan {
 
             if (current != null) {
                 if (current.getLokasiNode().equalsIgnoreCase(lokasi)) {
-                    System.out.println(count + ". [" + current.getReportID() + "] " + current.getPriorityLevel() + " - " + current.getTotalPoint() + " poin");
+                    System.out.println(count + ". [" + current.getReportID() + "] " + current.getPriorityLevel() + " - " + current.getTotalPoint() + " poin - Jenis: " + current.getJenisKebakaranNama());
                     found = true;
                     count++;
                 }
@@ -286,49 +294,96 @@ public class methodLaporan {
             pushRiwayat(nodeToRestore);
         }
     }
+
+    public void searchByPriorityLevel(String priority) {
+        if (topStack == null) {
+            System.out.println("Riwayat kosong!");
+            return;
+        }
+
+        System.out.println("\n=== HASIL PENCARIAN PRIORITAS: " + priority + " ===");
+        boolean found = false;
+        int count = 1;
+
+        // Stack Sementara (Bantuan)
+        FireReport tempStackHead = null;
+
+        // --- PHASE 1: BONGKAR (POP) & CARI ---
+        while (topStack != null) {
+            // A. POP (Ambil satu data)
+            FireReport current = popRiwayat();
+
+            if (current != null) {
+                // B. CEK DATA
+                // Menggunakan equalsIgnoreCase agar "High", "high", "HIGH" dianggap sama
+                if (current.getPriorityLevel().equalsIgnoreCase(priority)) {
+                    System.out.println(count + ". [" + current.getReportID() + "] " + 
+                                     current.getPriorityLevel() + " - " + 
+                                     current.getTotalPoint() + " poin");
+                    System.out.println("   Lokasi: " + current.getLokasiNode() + " | Jenis: " + current.getJenisKebakaranNama());
+                    found = true;
+                    count++;
+                }
+
+                // C. PUSH KE TEMP STACK (Simpan sementara)
+                current.next = tempStackHead;
+                tempStackHead = current;
+            }
+        }
+
+        if (!found) {
+            System.out.println("✗ Tidak ada laporan dengan prioritas '" + priority + "'!");
+        }
+
+        // --- PHASE 2: RESTORE (KEMBALIKAN KE STACK UTAMA) ---
+        while (tempStackHead != null) {
+            FireReport nodeToRestore = tempStackHead;
+            tempStackHead = tempStackHead.next; // Geser head temp turun
+            
+            // Push balik menggunakan method resmi
+            pushRiwayat(nodeToRestore);
+        }
+    }
     
     // === SORTING METHODS ===
-    
     public void sortByID() {
         if (topStack == null || topStack.next == null) {
             return;
         }
-    
-        System.out.println("Mengurutkan Stack berdasarkan ID...");
-    
-        // Stack Sementara buat yang udah terurut 
+
+        System.out.println("Sedang mengurutkan Stack berdasarkan ID...");
+
         FireReport sortedStackHead = null;
-    
+
         while (topStack != null) {
-            
-            // Ambil satu elemen dari Stack Utama (POP)
+
             FireReport current = popRiwayat();
-        
-        
-            // untuk Ascending
-            while (sortedStackHead != null && sortedStackHead.getReportID().compareTo(current.getReportID()) > 0) {
+
+            //untuk Ascending A-Z
+            while (sortedStackHead != null && 
+                   sortedStackHead.getReportID().compareTo(current.getReportID()) > 0) {
                 
                 // Pop dari Sorted Stack
                 FireReport temp = sortedStackHead;
                 sortedStackHead = sortedStackHead.next; // Geser head turun
                 
-                // Push BALIK ke Stack Utama
+                // Push balik ke Stack Utama
                 pushRiwayat(temp);
             }
-        
+
             current.next = sortedStackHead;
             sortedStackHead = current;
         }
-    
-        // Pindahkan kembali dari Sorted Stack ke Stack Utama
+
+        //Restore
         while (sortedStackHead != null) {
             FireReport temp = sortedStackHead;
             sortedStackHead = sortedStackHead.next;
-            
+
             pushRiwayat(temp);
         }
-    
-        System.out.println("Riwayat berhasil diurutkan berdasarkan ID !");
+
+        System.out.println("✓ Riwayat berhasil diurutkan berdasarkan ID (Strict Stack Method)!");
     }
         
     public void sortByLokasi() {
@@ -336,7 +391,7 @@ public class methodLaporan {
             return;
         }
 
-        System.out.println("Mengurutkan Stack berdasarkan Lokasi...");
+        System.out.println("Sedang mengurutkan Stack berdasarkan Lokasi...");
 
         FireReport sortedStackHead = null;
 
@@ -364,7 +419,7 @@ public class methodLaporan {
             pushRiwayat(temp);
         }
 
-        System.out.println("Riwayat berhasil diurutkan berdasarkan Lokasi!");
+        System.out.println("✓ Riwayat berhasil diurutkan berdasarkan Lokasi!");
     }
     
     public void sortByTotalPoint() {
@@ -372,7 +427,8 @@ public class methodLaporan {
             return;
         }
 
-        System.out.println("Mengurutkan Stack berdasarkan Total Point (Highest on Top)...");
+        System.out.println("Sedang mengurutkan Stack berdasarkan Total Point (Highest on Top)...");
+
 
         FireReport sortedStackHead = null;
 
@@ -388,7 +444,7 @@ public class methodLaporan {
                 
                 pushRiwayat(temp);
             }
-        
+
             current.next = sortedStackHead;
             sortedStackHead = current;
         }
@@ -400,7 +456,58 @@ public class methodLaporan {
             pushRiwayat(temp);
         }
 
-        System.out.println("Riwayat berhasil diurutkan berdasarkan Total Point!");
+        System.out.println("✓ Riwayat berhasil diurutkan berdasarkan Total Point!");
     }
 
-}
+    public void sortByJenisKebakaran() {
+        if (topStack == null || topStack.next == null) {
+            return;
+        }
+
+        System.out.println("Sedang mengurutkan Stack berdasarkan Jenis Kebakaran (Resiko Tertinggi di Atas)...");
+
+        // Stack Sementara (Sorted Stack)
+        FireReport sortedStackHead = null;
+
+        // --- PROSES SORTING (Strict Stack) ---
+        while (topStack != null) {
+
+            // 1. Ambil data dari Stack Utama
+            FireReport current = popRiwayat();
+
+            // 2. Logika Pembanding:
+            // Kita ingin urutan Descending (Besar -> Kecil).
+            // Jadi di Stack Sementara harus tersusun: [Kecil] -> [Sedang] -> [Besar] (paling atas).
+            // Jika ada data di Stack Sementara yang nilainya LEBIH KECIL dari 'current',
+            // keluarkan dulu (kembalikan ke Stack Utama).
+            
+            // Asumsi: jenisKebakaran mengembalikan int (40, 35, 30, dst)
+            while (sortedStackHead != null && 
+                   sortedStackHead.jenisKebakaran < current.jenisKebakaran) {
+                
+                // Pop manual dari Sorted Stack
+                FireReport temp = sortedStackHead;
+                sortedStackHead = sortedStackHead.next;
+                
+                // Push BALIK ke Stack Utama
+                pushRiwayat(temp);
+            }
+
+            // 3. Masukkan 'current' ke Stack Sementara
+            current.next = sortedStackHead;
+            sortedStackHead = current;
+        }
+
+        // --- FINISHING (RESTORE) ---
+        // Pindahkan dari Sorted Stack ke Top Stack
+        // Urutan akan otomatis terbalik menjadi [Besar] -> [Sedang] -> [Kecil] di Stack Utama
+        while (sortedStackHead != null) {
+            FireReport temp = sortedStackHead;
+            sortedStackHead = sortedStackHead.next;
+
+            pushRiwayat(temp);
+        }
+
+        System.out.println("✓ Riwayat berhasil diurutkan berdasarkan Jenis Kebakaran!");
+    }
+}   

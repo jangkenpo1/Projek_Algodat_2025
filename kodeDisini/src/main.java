@@ -122,7 +122,7 @@ public class main {
 
         //Disini mulai SCANNER
         Scanner input = new Scanner(System.in);
-        
+        int reportCounter = 4;// Counter untuk repori ID (local variable)
         boolean running = true;
         while (running) {
             graph.UI();
@@ -134,7 +134,8 @@ public class main {
                 case 1:
                     System.out.println("\n=== TAMBAH LAPORAN KEBAKARAN ===");
                     
-                    String reportID = "REP-" + String.format("%03d", (int)(Math.random() * 1000));
+                    // Generate ID otomatis
+                    String reportID = "REP-" + String.format("%03d", reportCounter++);
                     
                     String lokasi = "";
                     boolean validLokasi = false;
@@ -207,13 +208,14 @@ public class main {
                                             System.out.println("\n=== MEMPROSES LAPORAN ===");
                                             System.out.println("ID: " + laporan.getReportID());
                                             System.out.println("Lokasi: " + laporan.getLokasiNode());
+                                            System.out.println("Jenis Kebakaran: " + laporan.getJenisKebakaranNama());
                                             System.out.println("Prioritas: " + laporan.getPriorityLevel());
                                             System.out.println("Total Poin: " + laporan.getTotalPoint());
                                             System.out.println("Mobil Dikerahkan: " + laporan.getMobilDikerahkan() + " unit");
-                                            System.out.println("\n✓ Laporan sedang ditangani...");
+                                            System.out.println("\nLaporan sedang ditangani...");
                                             
                                             pemadamNode.laporan.pushRiwayat(laporan);
-                                            System.out.println("✓ Laporan dipindahkan ke riwayat!");
+                                            System.out.println("Laporan dipindahkan ke riwayat!");
                                         }
                                     }
                                 }
@@ -231,10 +233,12 @@ public class main {
                                     System.out.println("1. Lihat Semua Riwayat");
                                     System.out.println("2. Search by ID");
                                     System.out.println("3. Search by Lokasi");
-                                    System.out.println("4. Sorting by ID");
-                                    System.out.println("5. Sorting by Lokasi");
-                                    System.out.println("6. Sorting by Total Point");
-                                    System.out.println("7. Kembali");
+                                    System.out.println("4. Search by Priority Level");
+                                    System.out.println("5. Sorting by ID");
+                                    System.out.println("6. Sorting by Lokasi");
+                                    System.out.println("7. Sorting by Total Point");
+                                    System.out.println("8. Sorting by Jenis Kebakaran");
+                                    System.out.println("9. Kembali");
                                     System.out.println("========================================");
                                     System.out.print("Pilih menu: ");
                                     int riwayatChoice = input.nextInt();
@@ -265,6 +269,14 @@ public class main {
                                             break;
                                             
                                         case 4:
+                                            System.out.print("\nMasukkan Priority Level (High/Medium/Low): ");
+                                            String searchPriority = input.nextLine();
+                                            pemadamNode.laporan.searchByPriorityLevel(searchPriority);
+                                            System.out.println("\nTekan Enter untuk kembali...");
+                                            input.nextLine();
+                                            break;
+                                            
+                                        case 5:
                                             System.out.println("\n=== SORTING BY ID ===");
                                             pemadamNode.laporan.sortByID();
                                             pemadamNode.laporan.displayStack();
@@ -272,7 +284,7 @@ public class main {
                                             input.nextLine();
                                             break;
                                             
-                                        case 5:
+                                        case 6:
                                             System.out.println("\n=== SORTING BY LOKASI ===");
                                             pemadamNode.laporan.sortByLokasi();
                                             pemadamNode.laporan.displayStack();
@@ -280,7 +292,7 @@ public class main {
                                             input.nextLine();
                                             break;
                                             
-                                        case 6:
+                                        case 7:
                                             System.out.println("\n=== SORTING BY TOTAL POINT ===");
                                             pemadamNode.laporan.sortByTotalPoint();
                                             pemadamNode.laporan.displayStack();
@@ -288,7 +300,15 @@ public class main {
                                             input.nextLine();
                                             break;
                                             
-                                        case 7:
+                                        case 8:
+                                            System.out.println("\n=== SORTING BY JENIS KEBAKARAN ===");
+                                            pemadamNode.laporan.sortByJenisKebakaran();
+                                            pemadamNode.laporan.displayStack();
+                                            System.out.println("\nTekan Enter untuk kembali...");
+                                            input.nextLine();
+                                            break;
+                                            
+                                        case 9:
                                             riwayatRunning = false;
                                             break;
                                             
