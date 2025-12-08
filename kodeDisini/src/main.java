@@ -115,6 +115,11 @@ public class main {
         graph.doubleaddEdge("S4", "S5", "Jl. Kenanga", 75);
         graph.doubleaddEdge("S4", "S6", "Jl. Veteran Raya", 80);
 
+        //Data manual untuk coba search dan sorting
+        pemadamNode.laporan.enqueue("REP-001", 8, 7, 6, 5, 4, "B3");
+        pemadamNode.laporan.enqueue("REP-002", 7, 6, 5, 4, 3, "B7");
+        pemadamNode.laporan.enqueue("REP-003", 9, 8, 7, 6, 5, "B1");
+
         //Disini mulai SCANNER
         Scanner input = new Scanner(System.in);
         
@@ -129,7 +134,6 @@ public class main {
                 case 1:
                     System.out.println("\n=== TAMBAH LAPORAN KEBAKARAN ===");
                     
-                    // Generate ID otomatis
                     String reportID = "REP-" + String.format("%03d", (int)(Math.random() * 1000));
                     
                     String lokasi = "";
