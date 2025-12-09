@@ -90,9 +90,14 @@ public class main {
         graph.doubleaddEdge("S4", "S5", "Jl. Kenanga", 7500);
         graph.doubleaddEdge("S4", "S6", "Jl. Veteran Raya", 8000);
 
-        pemadamNode.laporan.enqueue("REP-001", 40, 40, 30, 15, 20, "B3", 5500);
-        pemadamNode.laporan.enqueue("REP-002", 30, 35, 20, 15, 10, "B7", 7200);
-        pemadamNode.laporan.enqueue("REP-003", 20, 30, 30, 15, 15, "B1", 5000);
+        graph.dijkstraWithRoute("P1", "B3");
+        pemadamNode.laporan.enqueue("REP-001", 40, 40, 30, 15, 15, "B3", 27000, graph.getLastRoute());
+        
+        graph.dijkstraWithRoute("P1", "B7");
+        pemadamNode.laporan.enqueue("REP-002", 30, 35, 20, 10, 10, "B7", 19500, graph.getLastRoute());
+        
+        graph.dijkstraWithRoute("P1", "B1");
+        pemadamNode.laporan.enqueue("REP-003", 20, 30, 30, 10, 15, "B1", 18000, graph.getLastRoute());
 
         Scanner input = new Scanner(System.in);
         int reportCounter = 4;
@@ -113,7 +118,7 @@ public class main {
                     boolean validLokasi = false;
                     while (!validLokasi) {
                         pemadamNode.laporan.UIlokasiKebakaran(); 
-                        lokasi = input.nextLine();
+                        System.out.print(">> "); lokasi = input.nextLine();
                         if (graph.findNode(lokasi) != null) {
                             validLokasi = true;
                         } else {
@@ -123,26 +128,31 @@ public class main {
 
                     pemadamNode.laporan.UIancamanNyawa();
                     int ancamanChoice = input.nextInt();
-                    int ancamanPoin = pemadamNode.laporan.getAncamanNyawaPoin(ancamanChoice);
+                    int ancamanPoin = FireReportHelper.getAncamanNyawaPoin(ancamanChoice);
 
                     pemadamNode.laporan.UIjenisKebakaran();
                     int jenisChoice = input.nextInt();
-                    int jenisPoin = pemadamNode.laporan.getJenisKebakaranPoin(jenisChoice);
+                    int jenisPoin = FireReportHelper.getJenisKebakaranPoin(jenisChoice);
 
                     pemadamNode.laporan.UIkecepatanPenyebaran();
                     int kecepatanChoice = input.nextInt();
-                    int kecepatanPoin = pemadamNode.laporan.getKecepatanPenyebaranPoin(kecepatanChoice);
+                    int kecepatanPoin = FireReportHelper.getKecepatanPenyebaranPoin(kecepatanChoice);
 
                     pemadamNode.laporan.UIwaktuKebakaran();
                     int waktuChoice = input.nextInt();
-                    int waktuPoin = pemadamNode.laporan.getWaktuKebakaranPoin(waktuChoice);
+                    int waktuPoin = FireReportHelper.getWaktuKebakaranPoin(waktuChoice);
 
-                    int jarakMeter = graph.dijkstra("P1", lokasi);
+                    int jarakMeter = graph.dijkstraWithRoute("P1", lokasi);
+                    String ruteDilalui = graph.getLastRoute();
                     int lokasiPoin = graph.lokasiPoin(jarakMeter);
 
-                    System.out.println("📍 Jarak dari P1 ke " + lokasi + ": " + jarakMeter + " meter");
+                    System.out.println("Jarak dari P1 ke " + lokasi + ": " + jarakMeter + " meter");
+                    
+                    if (ruteDilalui != null && !ruteDilalui.isEmpty()) {
+                        System.out.println("Rute yang dilalui: " + ruteDilalui);
+                    }
 
-                    pemadamNode.laporan.enqueue(reportID, ancamanPoin, jenisPoin, kecepatanPoin, lokasiPoin, waktuPoin, lokasi, jarakMeter);
+                    pemadamNode.laporan.enqueue(reportID, ancamanPoin, jenisPoin, kecepatanPoin, lokasiPoin, waktuPoin, lokasi, jarakMeter, ruteDilalui);
 
                     System.out.println("\n✓ Laporan berhasil ditambahkan!");
                     System.out.println("Tekan Enter untuk kembali ke menu utama...");
@@ -179,11 +189,11 @@ public class main {
 
                                         if (laporan != null) {
                                             System.out.println("\n=== MEMPROSES LAPORAN ===");
-                                            System.out.println("ID: " + laporan.reportID);
-                                            System.out.println("Lokasi: " + laporan.lokasiNode);
-                                            System.out.println("Jenis Kebakaran: " + FireReportHelper.getJenisKebakaranNama(laporan.jenisKebakaran));
-                                            System.out.println("Prioritas: " + laporan.priorityLevel);
-                                            System.out.println("Total Poin: " + laporan.totalPoint);
+                                            System.out.println("ID:             :" + laporan.reportID);
+                                            System.out.println("Lokasi          : " + laporan.lokasiNode);
+                                            System.out.println("Jenis Kebakaran : " + FireReportHelper.getJenisKebakaranNama(laporan.jenisKebakaran));
+                                            System.out.println("Prioritas       : " + laporan.priorityLevel);
+                                            System.out.println("Total Poin      : " + laporan.totalPoint);
                                             System.out.println("Mobil Dikerahkan: " + laporan.mobilDikerahkan + " unit");
                                             System.out.println("\nLaporan sedang ditangani...");
 

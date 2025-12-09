@@ -11,10 +11,10 @@ public class FireReport {
     String priorityLevel;
     int mobilDikerahkan;
     String lokasiNode;
+    String ruteDilalui;
     FireReport next;
 
-    public FireReport(String reportID, int nyawa, int jenis, int penyebaran, 
-                      int lokasiPoint, int waktu, String lokasiNode, int jarak) {
+    public FireReport(String reportID, int nyawa, int jenis, int penyebaran, int lokasiPoint, int waktu, String lokasiNode, int jarak, String ruteDilalui) {
         this.reportID = reportID;
         this.ancamanNyawa = nyawa;
         this.jenisKebakaran = jenis;
@@ -23,6 +23,7 @@ public class FireReport {
         this.waktuKebakaran = waktu;
         this.lokasiNode = lokasiNode;
         this.jarakMeter = jarak;
+        this.ruteDilalui = ruteDilalui;
         FireReportHelper.hitungTotal(this);
     }
 }

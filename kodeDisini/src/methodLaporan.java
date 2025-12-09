@@ -4,7 +4,7 @@ public class methodLaporan {
 
     public void UIlokasiKebakaran() {
         System.out.println("\n=== Lokasi Kebakaran ===");
-        System.out.println("Masukkan nomor bangunan lokasi kebakaran (contoh: B1, S2, P1):");
+        System.out.println("Masukkan nomor bangunan lokasi kebakaran:");
     }
 
     public void UIancamanNyawa() {
@@ -14,16 +14,6 @@ public class methodLaporan {
         System.out.println("3. Potensi korban              : +20 poin");
         System.out.println("4. Tidak ada korban            : +0 poin");
         System.out.print("Pilih (1-4): ");
-    }
-
-    public int getAncamanNyawaPoin(int pilihan) {
-        switch(pilihan) {
-            case 1: return 40;  
-            case 2: return 30;  
-            case 3: return 20;  
-            case 4: return 0;   
-            default: return 0;
-        }
     }
 
     public void UIjenisKebakaran() {
@@ -39,20 +29,6 @@ public class methodLaporan {
         System.out.print("Pilih (1-8): ");
     }
 
-    public int getJenisKebakaranPoin(int pilihan) {
-        switch(pilihan) {
-            case 1: return 40;
-            case 2: return 35;
-            case 3: return 30;
-            case 4: return 25;
-            case 5: return 20;
-            case 6: return 20;
-            case 7: return 10;
-            case 8: return 5;
-            default: return 0;
-        }
-    }
-
     public void UIkecepatanPenyebaran() {
         System.out.println("\n=== Kecepatan Penyebaran (5-30 poin) ===");
         System.out.println("1. Api membesar sangat cepat   : +30 poin");
@@ -60,16 +36,6 @@ public class methodLaporan {
         System.out.println("3. Api stabil/sedang           : +10 poin");
         System.out.println("4. Api kecil/terkendali        : +5 poin");
         System.out.print("Pilih (1-4): ");
-    }
-
-    public int getKecepatanPenyebaranPoin(int pilihan) {
-        switch(pilihan) {
-            case 1: return 30;  
-            case 2: return 20;  
-            case 3: return 10;  
-            case 4: return 5;   
-            default: return 5;
-        }
     }
 
     public void UIwaktuKebakaran() {
@@ -82,19 +48,8 @@ public class methodLaporan {
         System.out.print("Pilih (1-5): ");
     }
 
-    public int getWaktuKebakaranPoin(int pilihan) {
-        switch(pilihan) {
-            case 1: return 15;  
-            case 2: return 12; 
-            case 3: return 10;  
-            case 4: return 8;   
-            case 5: return 5;  
-            default: return 5;
-        }
-    }
-
-    public void enqueue(String reportID, int ancamanPoin, int jenisPoin, int kecepatanPoin, int lokasiPoin, int waktuPoin, String lokasiNode, int jarakMeter) {
-        FireReport newReport = new FireReport(reportID, ancamanPoin, jenisPoin, kecepatanPoin, lokasiPoin, waktuPoin, lokasiNode, jarakMeter);
+    public void enqueue(String reportID, int ancamanPoin, int jenisPoin, int kecepatanPoin, int lokasiPoin, int waktuPoin, String lokasiNode, int jarakMeter, String ruteDilalui) {
+        FireReport newReport = new FireReport(reportID, ancamanPoin, jenisPoin, kecepatanPoin, lokasiPoin, waktuPoin, lokasiNode, jarakMeter, ruteDilalui);
 
         if (head == null || newReport.totalPoint > head.totalPoint) {
             newReport.next = head;
@@ -109,30 +64,15 @@ public class methodLaporan {
         }
     }
 
-    private void enqueueRestore(FireReport report) {
-        if (head == null) {
-            head = report;
-            report.next = null;
-        } else {
-            FireReport current = head;
-            while (current.next != null) {
-                current = current.next;
-            }
-            current.next = report;
-            report.next = null;
-        }
-    }
-
     public FireReport dequeue() {
         if (head == null) {
             System.out.println("Queue kosong!");
             return null;
         }
-        FireReport removedReport = head;
+        FireReport temp = head;
         head = head.next;
-        removedReport.next = null;
-        System.out.println("Laporan " + removedReport.reportID + " (" +  removedReport.priorityLevel + ") diambil dari queue!");
-        return removedReport;
+        temp.next = null;
+        return temp;
     }
 
     public void displayQueue() {
@@ -141,34 +81,49 @@ public class methodLaporan {
             return;
         }
 
-        System.out.println("\n=== PRIORITY QUEUE (Tertinggi di depan) ===");
-
-        FireReport tempStack = null;
-
+        // Strict Queue: gunakan dequeue dan enqueue untuk display
+        FireReport tempQueue = null;
+        FireReport tempTail = null;
+        
         while (head != null) {
             FireReport current = dequeue();
-
+            
             System.out.println("     ====== [" + current.reportID + "] ======     ");
             System.out.println("Priority Level       : " + current.priorityLevel);
             System.out.println("Jenis Kebakaran      : " + FireReportHelper.getJenisKebakaranNama(current.jenisKebakaran));
             System.out.println("Ancaman Nyawa        : " + FireReportHelper.getAncamanNyawaNama(current.ancamanNyawa));
             System.out.println("Kecepatan Penyebaran : " + FireReportHelper.getKecepatanPenyebaranNama(current.kecepatanPenyebaran));
             System.out.println("Lokasi Kebakaran     : " + current.lokasiNode + " - Jarak " + current.jarakMeter + " meter");
+            
+            if (current.ruteDilalui != null && !current.ruteDilalui.isEmpty()) {
+                System.out.println("Rute dari P1         : " + current.ruteDilalui);
+            }
+            
             System.out.println("Waktu Kebakaran      : " + FireReportHelper.getWaktuKebakaranNama(current.waktuKebakaran));
             System.out.println("Total Point          : " + current.totalPoint);
             System.out.println("----------------------------------------------");
 
-            current.next = tempStack;
-            tempStack = current;
-        }
-
-        while (tempStack != null) {
-            FireReport temp = tempStack;
-            tempStack = tempStack.next;
-            enqueueRestore(temp);
+            // Simpan ke temporary queue
+            if (tempQueue == null) {
+                tempQueue = current;
+                tempTail = current;
+            } else {
+                tempTail.next = current;
+                tempTail = current;
+            }
+            tempTail.next = null;
         }
 
         System.out.println("============================================\n");
+        
+        // Restore queue dari temporary
+        while (tempQueue != null) {
+            FireReport toRestore = tempQueue;
+            tempQueue = tempQueue.next;
+            toRestore.next = null;
+            
+            enqueue(toRestore.reportID, toRestore.ancamanNyawa, toRestore.jenisKebakaran, toRestore.kecepatanPenyebaran, toRestore.lokasiKebakaran, toRestore.waktuKebakaran, toRestore.lokasiNode, toRestore.jarakMeter, toRestore.ruteDilalui);
+        }
     }
 
 
@@ -215,6 +170,11 @@ public class methodLaporan {
             System.out.println("Ancaman Nyawa        : " + FireReportHelper.getAncamanNyawaNama(current.ancamanNyawa));
             System.out.println("Kecepatan Penyebaran : " + FireReportHelper.getKecepatanPenyebaranNama(current.kecepatanPenyebaran));
             System.out.println("Lokasi Kebakaran     : " + current.lokasiNode + " - Jarak " + current.jarakMeter + " meter");
+            
+            if (current.ruteDilalui != null && !current.ruteDilalui.isEmpty()) {
+                System.out.println("Rute dari P1         : " + current.ruteDilalui);
+            }
+            
             System.out.println("Waktu Kebakaran      : " + FireReportHelper.getWaktuKebakaranNama(current.waktuKebakaran));
             System.out.println("Total Point          : " + current.totalPoint);
             System.out.println("----------------------------------------------");

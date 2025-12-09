@@ -21,6 +21,51 @@ public class FireReportHelper {
         }
     }
 
+    public static int getAncamanNyawaPoin(int pilihan) {
+        switch(pilihan) {
+            case 1: return 40;  
+            case 2: return 30;  
+            case 3: return 20;  
+            case 4: return 0;   
+            default: return 0;
+        }
+    }
+
+    public static int getJenisKebakaranPoin(int pilihan) {
+        switch(pilihan) {
+            case 1: return 40;
+            case 2: return 35;
+            case 3: return 30;
+            case 4: return 25;
+            case 5: return 20;
+            case 6: return 20;
+            case 7: return 10;
+            case 8: return 5;
+            default: return 0;
+        }
+    }
+
+    public static int getKecepatanPenyebaranPoin(int pilihan) {
+        switch(pilihan) {
+            case 1: return 30;  
+            case 2: return 20;  
+            case 3: return 10;  
+            case 4: return 5;   
+            default: return 5;
+        }
+    }
+
+    public static int getWaktuKebakaranPoin(int pilihan) {
+        switch(pilihan) {
+            case 1: return 15;  
+            case 2: return 12; 
+            case 3: return 10;  
+            case 4: return 8;   
+            case 5: return 5;  
+            default: return 5;
+        }
+    }
+
     public static String getJenisKebakaranNama(int jenisKebakaran) {
         switch(jenisKebakaran) {
             case 40: return "SPBU/Tangki BBM";
@@ -39,7 +84,7 @@ public class FireReportHelper {
             case 40: return "Korban terperangkap";
             case 30: return "Korban terluka";
             case 20: return "Potensi korban";
-            case 0: return "Tidak ada korban";
+            case 0: return  "Tidak ada korban";
             default: return "Unknown";
         }
     }
@@ -49,18 +94,18 @@ public class FireReportHelper {
             case 30: return "Api membesar sangat cepat";
             case 20: return "Api membesar cepat";
             case 10: return "Api stabil/sedang";
-            case 5: return "Api kecil/terkendali";
+            case 5: return  "Api kecil/terkendali";
             default: return "Unknown";
         }
     }
 
     public static String getWaktuKebakaranNama(int waktuKebakaran) {
         switch(waktuKebakaran) {
-            case 15: return "Malam hari (22:00-05:00)";
-            case 12: return "Jam sibuk (07:00-09:00, 17:00-19:00)";
-            case 10: return "Jam kerja (09:00-17:00)";
-            case 8: return "Siang/sore normal (13:00-16:00)";
-            case 5: return "Pagi hari (05:00-07:00)";
+            case 15: return "Malam hari        (22:00-05:00)";
+            case 12: return "Jam sibuk         (07:00-09:00, 17:00-19:00)";
+            case 10: return "Jam kerja         (09:00-13:00, 16:00-17:00)";
+            case 8: return  "Siang/sore normal (13:00-16:00)";
+            case 5: return  "Pagi hari         (05:00-07:00)";
             default: return "Unknown";
         }
     }

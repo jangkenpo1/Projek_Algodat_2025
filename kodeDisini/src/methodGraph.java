@@ -66,8 +66,7 @@ public class methodGraph {
         }
     }
 
-
-    public int dijkstra(String startNodeID, String targetNodeID) {
+    public int dijkstraWithRoute(String startNodeID, String targetNodeID) {
         if (findNode(startNodeID) == null || findNode(targetNodeID) == null) {
             return Integer.MAX_VALUE;
         }
@@ -86,6 +85,13 @@ public class methodGraph {
         NodeQueue queue = null;
         queue = enqueueByPriority(queue, startNodeID, 0);
 
+        // Reset semua perjalanan
+        nodeGraph temp = head;
+        while (temp != null) {
+            temp.perjalanan = "";
+            temp = temp.next;
+        }
+
         while (queue != null) {
             String currentNodeID = queue.nodeID;
             int currentDist = queue.priority;
@@ -98,6 +104,7 @@ public class methodGraph {
             }
 
             if (currentNodeID.equals(targetNodeID)) {
+                this.lastRoute = currentNode.perjalanan;
                 return currentDist;
             }
 
@@ -114,6 +121,13 @@ public class methodGraph {
                     if (newDist < oldDist) {
                         updateDistance(distanceList, neighborNode.nomorBangunan, newDist);
                         queue = enqueueByPriority(queue, neighborNode.nomorBangunan, newDist);
+                        
+                        // Update perjalanan: copy dari current + tambah jalan baru
+                        if (currentNode.perjalanan.isEmpty()) {
+                            neighborNode.perjalanan = edge.namaJalan;
+                        } else {
+                            neighborNode.perjalanan = currentNode.perjalanan + " -> " + edge.namaJalan;
+                        }
                     }
                 }
 
@@ -121,9 +135,15 @@ public class methodGraph {
             }
         }
 
+        this.lastRoute = null;
         return Integer.MAX_VALUE;
     }
 
+    private String lastRoute;
+
+    public String getLastRoute() {
+        return lastRoute;
+    }
 
     private void resetVisited() {
         nodeGraph current = head;

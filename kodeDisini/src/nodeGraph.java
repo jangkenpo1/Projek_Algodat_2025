@@ -6,6 +6,7 @@ public class nodeGraph {
 
     methodLaporan laporan;
     boolean isVisited;
+    String perjalanan;
 
     public nodeGraph(String nomorBangunan, String jenisBangunan) {
         this.nomorBangunan = nomorBangunan;
@@ -14,5 +15,6 @@ public class nodeGraph {
         this.next = null;
         this.laporan = null;
         this.isVisited = false;
+        this.perjalanan = "";
     }
 }
