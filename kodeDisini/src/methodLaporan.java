@@ -3,22 +3,17 @@ public class methodLaporan {
     FireReport topStack;
 
     public void UIlokasiKebakaran() {
-        System.out.println("\n================================================");
-        System.out.println("           LOKASI KEBAKARAN");
-        System.out.println("================================================");
-        System.out.print("Masukkan kode lokasi (B1-B17, S1-S7, P1): ");
+        System.out.println("\n=== Lokasi Kebakaran ===");
+        System.out.println("Masukkan nomor bangunan lokasi kebakaran (contoh: B1, S2, P1):");
     }
 
     public void UIancamanNyawa() {
-        System.out.println("\n================================================");
-        System.out.println("        ANCAMAN NYAWA (0-40 poin)");
-        System.out.println("================================================");
-        System.out.println("  1. [X] Korban terperangkap        -> +40 poin");
-        System.out.println("  2. [!] Korban terluka             -> +30 poin");
-        System.out.println("  3. [!] Potensi korban             -> +20 poin");
-        System.out.println("  4. [v] Tidak ada korban           -> +0 poin");
-        System.out.println("================================================");
-        System.out.print(">> Pilihan Anda (1-4): ");
+        System.out.println("\n=== Ancaman Nyawa (0-40 poin) ===");
+        System.out.println("1. Korban terperangkap         : +40 poin");
+        System.out.println("2. Korban terluka              : +30 poin");  
+        System.out.println("3. Potensi korban              : +20 poin");
+        System.out.println("4. Tidak ada korban            : +0 poin");
+        System.out.print("Pilih (1-4): ");
     }
 
     public int getAncamanNyawaPoin(int pilihan) {
@@ -32,19 +27,16 @@ public class methodLaporan {
     }
 
     public void UIjenisKebakaran() {
-        System.out.println("\n================================================");
-        System.out.println("        JENIS KEBAKARAN (5-40 poin)");
-        System.out.println("================================================");
-        System.out.println("  1. SPBU/Tangki BBM             -> +40 poin");
-        System.out.println("  2. Rumah Sakit/Sekolah         -> +35 poin");
-        System.out.println("  3. Gedung Bertingkat           -> +30 poin");
-        System.out.println("  4. Pabrik Industri             -> +25 poin");
-        System.out.println("  5. Rumah Tinggal               -> +20 poin");
-        System.out.println("  6. Apartemen                   -> +20 poin");
-        System.out.println("  7. Kendaraan                   -> +10 poin");
-        System.out.println("  8. Lahan Kosong                -> +5 poin");
-        System.out.println("================================================");
-        System.out.print(">> Pilihan Anda (1-8): ");
+        System.out.println("\n=== Jenis Kebakaran (5-40 poin) ===");
+        System.out.println("1. SPBU/Tangki BBM             : +40 poin (risiko ledakan)");
+        System.out.println("2. Rumah Sakit/Sekolah         : +35 poin");
+        System.out.println("3. Gedung Bertingkat           : +30 poin");
+        System.out.println("4. Pabrik Industri             : +25 poin");
+        System.out.println("5. Rumah tinggal               : +20 poin");
+        System.out.println("6. Apartemen                   : +20 poin");
+        System.out.println("7. Kendaraan                   : +10 poin");
+        System.out.println("8. Lahan kosong                : +5 poin");
+        System.out.print("Pilih (1-8): ");
     }
 
     public int getJenisKebakaranPoin(int pilihan) {
@@ -62,15 +54,12 @@ public class methodLaporan {
     }
 
     public void UIkecepatanPenyebaran() {
-        System.out.println("\n================================================");
-        System.out.println("      KECEPATAN PENYEBARAN (5-30 poin)");
-        System.out.println("================================================");
-        System.out.println("  1. [XXX] Api sangat cepat         -> +30 poin");
-        System.out.println("  2. [XX]  Api cepat                -> +20 poin");
-        System.out.println("  3. [X]   Api stabil/sedang        -> +10 poin");
-        System.out.println("  4. [.]   Api kecil/terkendali     -> +5 poin");
-        System.out.println("================================================");
-        System.out.print(">> Pilihan Anda (1-4): ");
+        System.out.println("\n=== Kecepatan Penyebaran (5-30 poin) ===");
+        System.out.println("1. Api membesar sangat cepat   : +30 poin");
+        System.out.println("2. Api membesar cepat          : +20 poin");
+        System.out.println("3. Api stabil/sedang           : +10 poin");
+        System.out.println("4. Api kecil/terkendali        : +5 poin");
+        System.out.print("Pilih (1-4): ");
     }
 
     public int getKecepatanPenyebaranPoin(int pilihan) {
@@ -84,16 +73,13 @@ public class methodLaporan {
     }
 
     public void UIwaktuKebakaran() {
-        System.out.println("\n================================================");
-        System.out.println("        WAKTU KEBAKARAN (5-15 poin)");
-        System.out.println("================================================");
-        System.out.println("  1. Malam (22:00-05:00)         -> +15 poin");
-        System.out.println("  2. Jam Sibuk (07-09,17-19)     -> +12 poin");
-        System.out.println("  3. Jam Kerja (09:00-17:00)     -> +10 poin");
-        System.out.println("  4. Siang/Sore (13:00-16:00)    -> +8 poin");
-        System.out.println("  5. Pagi Hari (05:00-07:00)     -> +5 poin");
-        System.out.println("================================================");
-        System.out.print(">> Pilihan Anda (1-5): ");
+        System.out.println("\n=== Waktu Kebakaran (5-15 poin) ===");
+        System.out.println("1. Malam hari (22:00-05:00)    : +15 poin (orang tidur)");
+        System.out.println("2. Jam sibuk (07:00-09:00, 17:00-19:00) : +12 poin (traffic padat)");
+        System.out.println("3. Jam kerja (09:00-17:00)     : +10 poin (gedung berisi orang)");
+        System.out.println("4. Siang/sore normal (13:00-16:00) : +8 poin");
+        System.out.println("5. Pagi hari (05:00-07:00)     : +5 poin");
+        System.out.print("Pilih (1-5): ");
     }
 
     public int getWaktuKebakaranPoin(int pilihan) {
@@ -155,26 +141,22 @@ public class methodLaporan {
             return;
         }
 
-        System.out.println("\n========================================================");
-        System.out.println("          PRIORITY QUEUE - ANTRIAN LAPORAN");
-        System.out.println("========================================================");
+        System.out.println("\n=== PRIORITY QUEUE (Tertinggi di depan) ===");
 
         FireReport tempStack = null;
 
         while (head != null) {
             FireReport current = dequeue();
 
-            System.out.println("\n+------------------------------------------------------+");
-            System.out.println("| LAPORAN ID: " + current.reportID + "                                    |");
-            System.out.println("+------------------------------------------------------+");
-            System.out.println("| Prioritas         : " + current.priorityLevel);
-            System.out.println("| Jenis             : " + FireReportHelper.getJenisKebakaranNama(current.jenisKebakaran));
-            System.out.println("| Ancaman Nyawa     : " + FireReportHelper.getAncamanNyawaNama(current.ancamanNyawa));
-            System.out.println("| Penyebaran        : " + FireReportHelper.getKecepatanPenyebaranNama(current.kecepatanPenyebaran));
-            System.out.println("| Lokasi            : " + current.lokasiNode + " (" + current.jarakMeter + "m dari P1)");
-            System.out.println("| Waktu             : " + FireReportHelper.getWaktuKebakaranNama(current.waktuKebakaran));
-            System.out.println("| Total Poin        : " + current.totalPoint);
-            System.out.println("+------------------------------------------------------+");
+            System.out.println("     ====== [" + current.reportID + "] ======     ");
+            System.out.println("Priority Level       : " + current.priorityLevel);
+            System.out.println("Jenis Kebakaran      : " + FireReportHelper.getJenisKebakaranNama(current.jenisKebakaran));
+            System.out.println("Ancaman Nyawa        : " + FireReportHelper.getAncamanNyawaNama(current.ancamanNyawa));
+            System.out.println("Kecepatan Penyebaran : " + FireReportHelper.getKecepatanPenyebaranNama(current.kecepatanPenyebaran));
+            System.out.println("Lokasi Kebakaran     : " + current.lokasiNode + " - Jarak " + current.jarakMeter + " meter");
+            System.out.println("Waktu Kebakaran      : " + FireReportHelper.getWaktuKebakaranNama(current.waktuKebakaran));
+            System.out.println("Total Point          : " + current.totalPoint);
+            System.out.println("----------------------------------------------");
 
             current.next = tempStack;
             tempStack = current;
@@ -192,6 +174,10 @@ public class methodLaporan {
 
     public FireReport peek() {
         return topStack;
+    }
+
+    public FireReport peekQueue() {
+        return head;
     }
 
     public void pushRiwayat(FireReport laporan) {
