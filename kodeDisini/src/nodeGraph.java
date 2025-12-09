@@ -3,16 +3,16 @@ public class nodeGraph {
     String jenisBangunan;
     nodeEdge headEdge;
     nodeGraph next;
-    
-    FireReport laporanHead;      
-    methodLaporan laporan;    
-    
+
+    methodLaporan laporan;
+    boolean isVisited;
+
     public nodeGraph(String nomorBangunan, String jenisBangunan) {
         this.nomorBangunan = nomorBangunan;
         this.jenisBangunan = jenisBangunan;
         this.headEdge = null;
         this.next = null;
-        this.laporanHead = null;
-        this.laporan = null;  // Default null, set manual main P1
+        this.laporan = null;
+        this.isVisited = false;
     }
 }
