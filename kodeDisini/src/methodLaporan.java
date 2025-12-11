@@ -425,7 +425,8 @@ public class methodLaporan {
         System.out.println("✓ Riwayat berhasil diurutkan berdasarkan Total Point!");
     }
 
-    public void sortByJenisKebakaran() {
+    public void sortByJenisKebakaran() { // Mengurutkan berdasarkan Jenis Kebakaran
+        // Mengurutkan berdasarkan Jenis Kebakaran (Resiko Tertinggi di Atas
         if (topStack == null || topStack.next == null) {
             return;
         }
