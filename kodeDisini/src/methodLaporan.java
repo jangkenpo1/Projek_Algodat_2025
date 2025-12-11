@@ -267,6 +267,120 @@ public class methodLaporan {
         if (!found) {
             System.out.println("✗ Tidak ada laporan di lokasi '" + lokasi + "'!");
         }
+<<<<<<< HEAD
+    }
+    
+    // === SORTING METHODS ===
+    public void sortByID() {
+        if (topStack == null || topStack.next == null) return;
+
+        FireReport sorted = null; 
+        FireReport current = topStack; 
+
+        while (current != null) {
+            FireReport next = current.next;        
+            if (sorted == null || current.getReportID().compareTo(sorted.getReportID()) < 0) {
+                current.next = sorted;
+                sorted = current;
+            } 
+            else {
+                FireReport search = sorted;
+                while (search.next != null && current.getReportID().compareTo(search.next.getReportID()) > 0) {
+                    search = search.next;
+                }
+                current.next = search.next;
+                search.next = current;
+            }
+            current = next;
+        }
+        topStack = sorted;
+        System.out.println("Riwayat berhasil diurutkan berdasarkan ID menggunakan Insertion Sort!");
+    }
+
+    public void sortByLokasi() {
+        if (topStack == null || topStack.next == null) return;
+
+        FireReport sorted = null;
+        FireReport current = topStack;
+
+        while (current != null) {
+            FireReport next = current.next;
+
+            if (sorted == null || current.getLokasiNode().compareTo(sorted.getLokasiNode()) < 0) {
+                current.next = sorted;
+                sorted = current;
+            } else {
+                FireReport search = sorted;
+                while (search.next != null && current.getLokasiNode().compareTo(search.next.getLokasiNode()) > 0) {
+                    search = search.next;
+                }
+                current.next = search.next;
+                search.next = current;
+            }
+
+            current = next;
+        }
+
+        topStack = sorted;
+        System.out.println("Riwayat berhasil diurutkan berdasarkan Lokasi menggunakan Insertion Sort!");
+    }
+    // Sort by Jenis Kebakaran
+    public void sortByJenisKebakaran() {
+        if (topStack == null || topStack.next == null) return;
+
+        FireReport sorted = null;
+        FireReport current = topStack;
+
+        while (current != null) {
+            FireReport next = current.next;
+
+            if (sorted == null || current.getLokasiNode().compareTo(sorted.getLokasiNode()) < 0) {
+                current.next = sorted;
+                sorted = current;
+            } else {
+                FireReport search = sorted;
+                while (search.next != null && current.getLokasiNode().compareTo(search.next.getLokasiNode()) > 0) {
+                    search = search.next;
+                }
+                current.next = search.next;
+                search.next = current;
+            }
+
+            current = next;
+        }
+
+        topStack = sorted;
+        System.out.println("Riwayat berhasil diurutkan berdasarkan jenis kebakaran menggunakan Insertion Sort!");
+    }
+
+    public void sortByTotalPoint() {
+        if (topStack == null || topStack.next == null) return;
+
+        FireReport sorted = null;
+        FireReport current = topStack;
+
+        while (current != null) {
+            FireReport next = current.next;
+            if (sorted == null || current.getTotalPoint() > sorted.getTotalPoint()) {
+                current.next = sorted;
+                sorted = current;
+            } else {
+                FireReport search = sorted;
+                while (search.next != null && current.getTotalPoint() < search.next.getTotalPoint()) {
+                    search = search.next;
+                }
+                current.next = search.next;
+                search.next = current;
+            }
+
+            current = next;
+        }
+
+        topStack = sorted;
+        System.out.println("Riwayat berhasil diurutkan berdasarkan Total Point (tertinggi ke terendah) menggunakan Insertion Sort!");
+    }
+}
+=======
 
         while (tempStackHead != null) {
             FireReport nodeToRestore = tempStackHead;
@@ -425,8 +539,7 @@ public class methodLaporan {
         System.out.println("✓ Riwayat berhasil diurutkan berdasarkan Total Point!");
     }
 
-    public void sortByJenisKebakaran() { // Mengurutkan berdasarkan Jenis Kebakaran
-        // Mengurutkan berdasarkan Jenis Kebakaran (Resiko Tertinggi di Atas
+    public void sortByJenisKebakaran() {
         if (topStack == null || topStack.next == null) {
             return;
         }
@@ -463,3 +576,4 @@ public class methodLaporan {
         System.out.println("✓ Riwayat berhasil diurutkan berdasarkan Jenis Kebakaran!");
     }
 }
+>>>>>>> d6d3e48f2c729b2eeca822c4a372c534d9942690
