@@ -252,7 +252,7 @@ public class main {
                                             break;
 
                                         case 4:
-                                            System.out.print("\nMasukkan Priority Level (High/Medium/Low): ");
+                                            System.out.print("\nMasukkan Priority Level (High/Medium/Low/Critical): ");
                                             String searchPriority = input.nextLine();
                                             pemadamNode.laporan.searchByPriorityLevel(searchPriority);
                                             System.out.println("\nTekan Enter untuk kembali...");
