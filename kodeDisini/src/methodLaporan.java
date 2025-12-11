@@ -575,5 +575,30 @@ public class methodLaporan {
 
         System.out.println("✓ Riwayat berhasil diurutkan berdasarkan Jenis Kebakaran!");
     }
+public void searchQueueByPriority(String priority) {
+    if (head == null) {
+        System.out.println("Queue kosong!");
+        return;
+    }
+    
+    FireReport current = head;
+    boolean found = false;
+    
+    System.out.println("\n=== LAPORAN DENGAN PRIORITAS: " + priority.toUpperCase() + " ===");
+    
+    while (current != null) { 
+        if (current.getPriorityLevel().equalsIgnoreCase(priority)) {
+            System.out.println("ID: " + current.getReportID() + " | Lokasi: " +
+                               current.getLokasiNode() + " | Poin: " +
+                               current.getTotalPoint());
+            found = true;
+        }
+        current = current.next;
+    }
+    
+    if (!found) {
+        System.out.println("✗ Tidak ada laporan aktif dengan prioritas tersebut!");
+    }
+
 }
 >>>>>>> d6d3e48f2c729b2eeca822c4a372c534d9942690
